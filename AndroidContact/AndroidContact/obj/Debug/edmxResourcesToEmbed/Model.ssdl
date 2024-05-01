@@ -1,0 +1,647 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CContactModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="appointments">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="hospital_id" Type="int" />
+    <Property Name="vaccine_id" Type="int" />
+    <Property Name="date" Type="date" />
+    <Property Name="reason_id" Type="int" />
+    <Property Name="step" Type="int" />
+    <Property Name="approve" Type="int" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+    <Property Name="status" Type="int" />
+    <Property Name="date_2" Type="date" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'CContact.dbo.auth_tokens' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="auth_tokens">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="user_id" />
+      <PropertyRef Name="token" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="token" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="expired" Type="datetime" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="categories">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="parent_id" Type="int" />
+    <Property Name="order" Type="int" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="slug" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="communes">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="ref_code" Type="nvarchar" MaxLength="19" />
+    <Property Name="label" Type="int" />
+    <Property Name="prefix" Type="nvarchar" MaxLength="100" />
+    <Property Name="name_en" Type="nvarchar" MaxLength="100" />
+    <Property Name="name_kh" Type="nvarchar" MaxLength="100" />
+    <Property Name="district_id" Type="int" />
+    <Property Name="start_date" Type="datetime" />
+    <Property Name="end_date" Type="datetime" />
+    <Property Name="status" Type="int" />
+    <Property Name="created_date" Type="datetime" />
+    <Property Name="created_by" Type="int" />
+    <Property Name="modified_date" Type="datetime" />
+    <Property Name="modified_by" Type="int" />
+  </EntityType>
+  <EntityType Name="data_rows">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="data_type_id" Type="int" Nullable="false" />
+    <Property Name="field" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="type" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="display_name" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="required" Type="bit" Nullable="false" />
+    <Property Name="browse" Type="bit" Nullable="false" />
+    <Property Name="read" Type="bit" Nullable="false" />
+    <Property Name="edit" Type="bit" Nullable="false" />
+    <Property Name="add" Type="bit" Nullable="false" />
+    <Property Name="delete" Type="bit" Nullable="false" />
+    <Property Name="details" Type="nvarchar(max)" />
+    <Property Name="order" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="data_types">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="slug" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="display_name_singular" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="display_name_plural" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="icon" Type="nvarchar" MaxLength="255" />
+    <Property Name="model_name" Type="nvarchar" MaxLength="255" />
+    <Property Name="description" Type="nvarchar" MaxLength="255" />
+    <Property Name="generate_permissions" Type="bit" Nullable="false" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+    <Property Name="server_side" Type="tinyint" Nullable="false" />
+    <Property Name="controller" Type="nvarchar" MaxLength="255" />
+    <Property Name="policy_name" Type="nvarchar" MaxLength="255" />
+    <Property Name="details" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'CContact.dbo.dbo.members' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="dbo_members">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="password" />
+    </Key>
+    <Property Name="id" Type="bigint" Nullable="false" />
+    <Property Name="role_id" Type="bigint" />
+    <Property Name="province_id" Type="int" />
+    <Property Name="district_id" Type="int" />
+    <Property Name="commune_id" Type="int" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" />
+    <Property Name="village_id" Type="int" />
+    <Property Name="code" Type="int" />
+    <Property Name="name_kh" Type="nvarchar" MaxLength="255" />
+    <Property Name="email" Type="nvarchar" MaxLength="255" />
+    <Property Name="email_verified_at" Type="datetime" />
+    <Property Name="password" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="qr_code_server" Type="nvarchar" MaxLength="255" />
+    <Property Name="qr_code_ministry" Type="nvarchar" MaxLength="255" />
+    <Property Name="phone" Type="nvarchar" MaxLength="20" />
+    <Property Name="status" Type="int" />
+    <Property Name="remember_token" Type="nvarchar" MaxLength="100" />
+    <Property Name="avatar" Type="nvarchar" MaxLength="255" />
+    <Property Name="settings" Type="nvarchar" MaxLength="250" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+    <Property Name="name_en" Type="nvarchar" MaxLength="255" />
+    <Property Name="gender" Type="nvarchar" MaxLength="255" />
+    <Property Name="dob" Type="date" />
+    <Property Name="national_id_card" Type="nvarchar" MaxLength="255" />
+    <Property Name="username" Type="nvarchar" MaxLength="255" />
+    <Property Name="organization_id" Type="int" />
+    <Property Name="position_id" Type="int" />
+    <Property Name="is_illness" Type="int" />
+    <Property Name="is_alergy" Type="int" />
+  </EntityType>
+  <EntityType Name="device_tokens">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id" Type="int" />
+    <Property Name="device_token" Type="nvarchar(max)" />
+    <Property Name="device_type" Type="nvarchar(max)" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="districts">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ref_code" Type="int" />
+    <Property Name="label" Type="nvarchar" MaxLength="50" />
+    <Property Name="prefix" Type="nvarchar" MaxLength="10" />
+    <Property Name="name_en" Type="nvarchar" MaxLength="50" />
+    <Property Name="name_kh" Type="nvarchar" MaxLength="50" />
+    <Property Name="province_id" Type="int" />
+    <Property Name="status" Type="int" />
+    <Property Name="start_date" Type="datetime" />
+    <Property Name="end_date" Type="datetime" />
+    <Property Name="created_date" Type="datetime" />
+    <Property Name="created_by" Type="int" />
+    <Property Name="modified_date" Type="datetime" />
+    <Property Name="modified_by" Type="int" />
+  </EntityType>
+  <EntityType Name="failed_jobs">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="uuid" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="connection" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="queue" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="payload" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="exception" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="failed_at" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="hospitals">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="province_id" Type="int" />
+    <Property Name="name_kh" Type="nvarchar" MaxLength="255" />
+    <Property Name="name_en" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="logs">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id" Type="int" />
+    <Property Name="ref_id" Type="int" />
+    <Property Name="obj_data" Type="nvarchar(max)" />
+    <Property Name="action" Type="nvarchar" MaxLength="100" />
+    <Property Name="tbl" Type="nvarchar" MaxLength="100" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="menu_items">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="menu_id" Type="int" />
+    <Property Name="title" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="url" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="target" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="icon_class" Type="nvarchar" MaxLength="255" />
+    <Property Name="color" Type="nvarchar" MaxLength="255" />
+    <Property Name="parent_id" Type="int" />
+    <Property Name="order" Type="int" Nullable="false" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+    <Property Name="route" Type="nvarchar" MaxLength="255" />
+    <Property Name="parameters" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="menus">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="migrations">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="migration" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="batch" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="notifications">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id" Type="int" />
+    <Property Name="type" Type="int" />
+    <Property Name="message" Type="nvarchar(max)" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="organizations">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="500" />
+    <Property Name="priority" Type="int" />
+    <Property Name="status" Type="int" />
+  </EntityType>
+  <EntityType Name="pages">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="author_id" Type="int" Nullable="false" />
+    <Property Name="title" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="excerpt" Type="nvarchar(max)" />
+    <Property Name="body" Type="nvarchar(max)" />
+    <Property Name="image" Type="nvarchar" MaxLength="255" />
+    <Property Name="slug" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="meta_description" Type="nvarchar(max)" />
+    <Property Name="meta_keywords" Type="nvarchar(max)" />
+    <Property Name="status" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'CContact.dbo.password_resets' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="password_resets">
+    <Key>
+      <PropertyRef Name="email" />
+      <PropertyRef Name="token" />
+    </Key>
+    <Property Name="email" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="token" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="created_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="permission_role">
+    <Key>
+      <PropertyRef Name="permission_id" />
+      <PropertyRef Name="role_id" />
+    </Key>
+    <Property Name="permission_id" Type="bigint" Nullable="false" />
+    <Property Name="role_id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="permissions">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="key" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="table_name" Type="nvarchar" MaxLength="255" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="positions">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="500" />
+    <Property Name="organization_id" Type="int" />
+    <Property Name="priority" Type="int" />
+    <Property Name="status" Type="int" />
+  </EntityType>
+  <EntityType Name="posts">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="author_id" Type="int" Nullable="false" />
+    <Property Name="category_id" Type="int" />
+    <Property Name="title" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="seo_title" Type="nvarchar" MaxLength="255" />
+    <Property Name="excerpt" Type="varchar(max)" />
+    <Property Name="body" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="image" Type="nvarchar" MaxLength="255" />
+    <Property Name="slug" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="meta_description" Type="varchar(max)" />
+    <Property Name="meta_keywords" Type="varchar(max)" />
+    <Property Name="status" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="featured" Type="bit" Nullable="false" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="provinces">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="ref_code" Type="int" />
+    <Property Name="label" Type="nvarchar" MaxLength="10" />
+    <Property Name="prefix" Type="int" />
+    <Property Name="name_en" Type="nvarchar" MaxLength="17" />
+    <Property Name="name_kh" Type="nvarchar" MaxLength="15" />
+    <Property Name="status" Type="int" />
+    <Property Name="start_date" Type="datetime" />
+    <Property Name="end_date" Type="int" />
+    <Property Name="created_date" Type="datetime" />
+    <Property Name="created_by" Type="int" />
+    <Property Name="modified_date" Type="int" />
+    <Property Name="modified_by" Type="int" />
+  </EntityType>
+  <EntityType Name="reasons">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name_en" Type="nvarchar(max)" />
+    <Property Name="name_kh" Type="nvarchar(max)" />
+    <Property Name="sort" Type="int" />
+    <Property Name="created_at" Type="date" />
+    <Property Name="updated_at" Type="date" />
+  </EntityType>
+  <EntityType Name="roles">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="display_name" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="settings">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="key" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="display_name" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="value" Type="nvarchar(max)" />
+    <Property Name="details" Type="nvarchar(max)" />
+    <Property Name="type" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="order" Type="int" Nullable="false" />
+    <Property Name="group" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="translations">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="table_name" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="column_name" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="foreign_key" Type="int" Nullable="false" />
+    <Property Name="locale" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="value" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="user_roles">
+    <Key>
+      <PropertyRef Name="user_id" />
+      <PropertyRef Name="role_id" />
+    </Key>
+    <Property Name="user_id" Type="bigint" Nullable="false" />
+    <Property Name="role_id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="role_id" Type="bigint" />
+    <Property Name="province_id" Type="int" />
+    <Property Name="district_id" Type="int" />
+    <Property Name="commune_id" Type="int" />
+    <Property Name="village_id" Type="int" />
+    <Property Name="position_id" Type="int" />
+    <Property Name="organization_id" Type="int" />
+    <Property Name="username" Type="nvarchar" MaxLength="255" />
+    <Property Name="name_kh" Type="nvarchar" MaxLength="255" />
+    <Property Name="name_en" Type="nvarchar" MaxLength="255" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" />
+    <Property Name="code" Type="nvarchar" MaxLength="255" />
+    <Property Name="email" Type="nvarchar" MaxLength="255" />
+    <Property Name="email_verified_at" Type="datetime" />
+    <Property Name="password" Type="nvarchar" MaxLength="255" />
+    <Property Name="qr_code_server" Type="nvarchar" MaxLength="255" />
+    <Property Name="qr_code_ministry" Type="nvarchar" MaxLength="255" />
+    <Property Name="phone" Type="nvarchar" MaxLength="20" />
+    <Property Name="remember_token" Type="nvarchar" MaxLength="100" />
+    <Property Name="avatar" Type="nvarchar" MaxLength="255" />
+    <Property Name="settings" Type="nvarchar" MaxLength="250" />
+    <Property Name="gender" Type="nvarchar" MaxLength="255" />
+    <Property Name="dob" Type="date" />
+    <Property Name="national_id_card" Type="nvarchar" MaxLength="255" />
+    <Property Name="is_illness" Type="int" />
+    <Property Name="is_alergy" Type="int" />
+    <Property Name="parent_id" Type="int" />
+    <Property Name="age" Type="int" />
+    <Property Name="status" Type="int" />
+    <Property Name="attempt_login" Type="int" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="vaccines">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name_en" Type="nvarchar" MaxLength="250" />
+    <Property Name="name_kh" Type="nvarchar" MaxLength="250" />
+    <Property Name="step" Type="int" />
+    <Property Name="date_1" Type="int" />
+    <Property Name="date_2" Type="int" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="verify_phones">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="phone" Type="nvarchar" MaxLength="100" />
+    <Property Name="code" Type="nvarchar" MaxLength="100" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="villages">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="ref_code" Type="nvarchar" MaxLength="20" />
+    <Property Name="label" Type="nvarchar" MaxLength="100" />
+    <Property Name="name_en" Type="nvarchar" MaxLength="100" />
+    <Property Name="name_kh" Type="nvarchar" MaxLength="500" />
+    <Property Name="commune_id" Type="int" />
+    <Property Name="hc_code" Type="int" />
+    <Property Name="status" Type="int" />
+    <Property Name="start_date" Type="datetime" />
+    <Property Name="end_date" Type="datetime" />
+    <Property Name="household" Type="int" />
+    <Property Name="population" Type="int" />
+    <Property Name="created_date" Type="datetime" />
+    <Property Name="created_by" Type="int" />
+    <Property Name="modified_date" Type="datetime" />
+    <Property Name="modified_by" Type="int" />
+  </EntityType>
+  <Association Name="data_rows_data_type_id_foreign">
+    <End Role="data_types" Type="Self.data_types" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="data_rows" Type="Self.data_rows" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="data_types">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="data_rows">
+        <PropertyRef Name="data_type_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="menu_items_menu_id_foreign">
+    <End Role="menus" Type="Self.menus" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="menu_items" Type="Self.menu_items" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="menus">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="menu_items">
+        <PropertyRef Name="menu_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="permission_role_permission_id_foreign">
+    <End Role="permissions" Type="Self.permissions" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="permission_role" Type="Self.permission_role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="permissions">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="permission_role">
+        <PropertyRef Name="permission_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="permission_role_role_id_foreign">
+    <End Role="roles" Type="Self.roles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="permission_role" Type="Self.permission_role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="roles">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="permission_role">
+        <PropertyRef Name="role_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CContactModelStoreContainer">
+    <EntitySet Name="appointments" EntityType="Self.appointments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="categories" EntityType="Self.categories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="communes" EntityType="Self.communes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="data_rows" EntityType="Self.data_rows" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="data_types" EntityType="Self.data_types" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="device_tokens" EntityType="Self.device_tokens" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="districts" EntityType="Self.districts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="failed_jobs" EntityType="Self.failed_jobs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="hospitals" EntityType="Self.hospitals" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="logs" EntityType="Self.logs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="menu_items" EntityType="Self.menu_items" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="menus" EntityType="Self.menus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="migrations" EntityType="Self.migrations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="notifications" EntityType="Self.notifications" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="organizations" EntityType="Self.organizations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="pages" EntityType="Self.pages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="permission_role" EntityType="Self.permission_role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="permissions" EntityType="Self.permissions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="positions" EntityType="Self.positions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="posts" EntityType="Self.posts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="provinces" EntityType="Self.provinces" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="reasons" EntityType="Self.reasons" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="settings" EntityType="Self.settings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="translations" EntityType="Self.translations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user_roles" EntityType="Self.user_roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="vaccines" EntityType="Self.vaccines" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="verify_phones" EntityType="Self.verify_phones" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="villages" EntityType="Self.villages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="auth_tokens" EntityType="Self.auth_tokens" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [auth_tokens].[id] AS [id], 
+    [auth_tokens].[user_id] AS [user_id], 
+    [auth_tokens].[token] AS [token], 
+    [auth_tokens].[expired] AS [expired], 
+    [auth_tokens].[created_at] AS [created_at], 
+    [auth_tokens].[updated_at] AS [updated_at]
+    FROM [dbo].[auth_tokens] AS [auth_tokens]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="dbo_members" EntityType="Self.dbo_members" store:Type="Tables" store:Schema="dbo" store:Name="dbo.members">
+      <DefiningQuery>SELECT 
+    [dbo_members].[id] AS [id], 
+    [dbo_members].[role_id] AS [role_id], 
+    [dbo_members].[province_id] AS [province_id], 
+    [dbo_members].[district_id] AS [district_id], 
+    [dbo_members].[commune_id] AS [commune_id], 
+    [dbo_members].[name] AS [name], 
+    [dbo_members].[village_id] AS [village_id], 
+    [dbo_members].[code] AS [code], 
+    [dbo_members].[name_kh] AS [name_kh], 
+    [dbo_members].[email] AS [email], 
+    [dbo_members].[email_verified_at] AS [email_verified_at], 
+    [dbo_members].[password] AS [password], 
+    [dbo_members].[qr_code_server] AS [qr_code_server], 
+    [dbo_members].[qr_code_ministry] AS [qr_code_ministry], 
+    [dbo_members].[phone] AS [phone], 
+    [dbo_members].[status] AS [status], 
+    [dbo_members].[remember_token] AS [remember_token], 
+    [dbo_members].[avatar] AS [avatar], 
+    [dbo_members].[settings] AS [settings], 
+    [dbo_members].[created_at] AS [created_at], 
+    [dbo_members].[updated_at] AS [updated_at], 
+    [dbo_members].[name_en] AS [name_en], 
+    [dbo_members].[gender] AS [gender], 
+    [dbo_members].[dob] AS [dob], 
+    [dbo_members].[national_id_card] AS [national_id_card], 
+    [dbo_members].[username] AS [username], 
+    [dbo_members].[organization_id] AS [organization_id], 
+    [dbo_members].[position_id] AS [position_id], 
+    [dbo_members].[is_illness] AS [is_illness], 
+    [dbo_members].[is_alergy] AS [is_alergy]
+    FROM [dbo].[dbo.members] AS [dbo_members]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="password_resets" EntityType="Self.password_resets" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [password_resets].[email] AS [email], 
+    [password_resets].[token] AS [token], 
+    [password_resets].[created_at] AS [created_at]
+    FROM [dbo].[password_resets] AS [password_resets]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="data_rows_data_type_id_foreign" Association="Self.data_rows_data_type_id_foreign">
+      <End Role="data_types" EntitySet="data_types" />
+      <End Role="data_rows" EntitySet="data_rows" />
+    </AssociationSet>
+    <AssociationSet Name="menu_items_menu_id_foreign" Association="Self.menu_items_menu_id_foreign">
+      <End Role="menus" EntitySet="menus" />
+      <End Role="menu_items" EntitySet="menu_items" />
+    </AssociationSet>
+    <AssociationSet Name="permission_role_permission_id_foreign" Association="Self.permission_role_permission_id_foreign">
+      <End Role="permissions" EntitySet="permissions" />
+      <End Role="permission_role" EntitySet="permission_role" />
+    </AssociationSet>
+    <AssociationSet Name="permission_role_role_id_foreign" Association="Self.permission_role_role_id_foreign">
+      <End Role="roles" EntitySet="roles" />
+      <End Role="permission_role" EntitySet="permission_role" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
